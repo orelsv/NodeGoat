@@ -1,8 +1,6 @@
-# Ignore test secrets in config/env.example.js
-# These are example values for demonstration only
-32f597a:config/env/development.js:generic-api-key:18
-57f638b:config/env/test.js:generic-api-key:6
-32f597a:config/env/test.js:generic-api-key:5
+# Ignore demo secrets in NodeGoat training repo
 
-c5f265d:artifacts/cert/server.key:private-key:1
-e0045e6:app/cert/key.pem:private-key:1
+32f597a
+57f638b
+c5f265d
+e0045e6
