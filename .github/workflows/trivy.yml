@@ -22,8 +22,8 @@ jobs:
           format: 'table'
           severity: 'HIGH,CRITICAL'
           exit-code: '0'
-          version: '0.69.3'
-
+          version: 'v0.69.3'
+          
       # 2) SARIF (для Security tab)
       - name: Run Trivy (sarif)
         id: trivy_sarif
@@ -34,7 +34,7 @@ jobs:
           severity: 'HIGH,CRITICAL'
           exit-code: '0'
           output: 'trivy-results.sarif'
-          version: '0.69.3'
+          version: 'v0.69.3'
 
       # 3) Upload тільки якщо SARIF реально створився
       - name: Upload to GitHub Security
