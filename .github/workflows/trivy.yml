@@ -10,28 +10,35 @@ jobs:
       security-events: write
       actions: read
       contents: read
+
     steps:
       - uses: actions/checkout@v4
-      
+
+      # 1) Console (табличка в логах)
       - name: Run Trivy (console output)
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@0.34.2
         with:
           scan-type: 'fs'
           format: 'table'
           severity: 'HIGH,CRITICAL'
           exit-code: '0'
-      
+          version: '0.69.3'
+
+      # 2) SARIF (для Security tab)
       - name: Run Trivy (sarif)
-        uses: aquasecurity/trivy-action@0.28.0
+        id: trivy_sarif
+        uses: aquasecurity/trivy-action@0.34.2
         with:
           scan-type: 'fs'
           format: 'sarif'
           severity: 'HIGH,CRITICAL'
           exit-code: '0'
           output: 'trivy-results.sarif'
-      
+          version: '0.69.3'
+
+      # 3) Upload тільки якщо SARIF реально створився
       - name: Upload to GitHub Security
         uses: github/codeql-action/upload-sarif@v4
-        if: always()
+        if: ${{ always() && steps.trivy_sarif.outcome == 'success' }}
         with:
           sarif_file: 'trivy-results.sarif'
